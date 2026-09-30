@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mộc Flower – Nền tảng tìm và đặt hoa, quà tặng theo dịp và ngân sách." />
+  <title>Mộc Flower — Tặng đúng người, đúng dịp, đúng ngân sách</title>
+  <style>
+    :root {
+      --bg: #fbf8f4;
+      --paper: #fffdf9;
+      --ink: #26231f;
+      --muted: #7a736b;
+      --line: #e7dfd4;
+      --accent: #8f6b55;
+      --accent-2: #caa98f;
+      --soft: #f0e7de;
+      --shadow: 0 16px 50px rgba(62, 45, 33, .08);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      padding: 9px 24px;
+      background: var(--ink);
+      color: #fffaf5;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(251,248,244,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(231,223,212,.9);
+    }
+    .nav {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 750;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50% 50% 45% 45%;
+      background: radial-gradient(circle at 45% 40%, #f2ded0 0 24%, #b98767 25% 45%, #8f6b55 46% 100%);
+      position: relative;
+      box-shadow: inset 0 -5px 9px rgba(60,40,26,.12);
+    }
+    .brand-mark::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      left: 13px;
+      bottom: -7px;
+      background: #5e725d;
+      border-radius: 100% 0 100% 0;
+      transform: rotate(28deg);
+    }
+    .nav-links { display: flex; gap: 24px; color: #5e554d; font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn, .cart-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,253,249,.8);
+      color: var(--ink);
+      border-radius: 999px;
+      min-height: 40px;
+      padding: 0 13px;
+    }
+    .cart-btn { font-weight: 650; display: flex; gap: 8px; align-items: center; }
+    .badge { min-width: 20px; height: 20px; padding: 0 5px; display:inline-grid; place-items:center; border-radius: 999px; background: var(--ink); color: white; font-size: 11px; }
+
+    .hero {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 64px 0 50px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 48px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: #755743;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { font-size: clamp(40px, 5vw, 68px); line-height: .98; letter-spacing: -.045em; margin: 18px 0; max-width: 650px; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 0 26px; }
+    .hero-cta { display:flex; flex-wrap:wrap; gap: 12px; }
+    .primary, .secondary {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 19px;
+      font-weight: 700;
+    }
+    .primary { background: var(--ink); color: white; }
+    .secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .primary:hover { transform: translateY(-1px); }
+
+    .hero-card {
+      min-height: 430px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 74% 27%, rgba(255,255,255,.98) 0 7%, transparent 7.5%),
+        radial-gradient(circle at 24% 67%, rgba(255,255,255,.65) 0 9%, transparent 9.5%),
+        linear-gradient(145deg, #eee0d4, #c9ac96 48%, #896c5b);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before, .hero-card::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    .hero-card::before { width: 270px; height:270px; right:-80px; top:-60px; }
+    .hero-card::after { width: 180px; height:180px; left:-60px; bottom:-40px; }
+    .bouquet-art { position:absolute; inset:0; display:grid; place-items:center; }
+    .bouquet { position:relative; width: 270px; height:320px; }
+    .wrap { position:absolute; left:62px; bottom:24px; width:150px; height:155px; background: linear-gradient(145deg,#d5b8a0,#a18069); clip-path: polygon(10% 0,90% 0,74% 100%,26% 100%); transform: rotate(-3deg); filter: drop-shadow(0 15px 14px rgba(54,38,26,.18)); }
+    .stem { position:absolute; width:4px; height:150px; background:#5e725d; bottom:100px; left:130px; transform-origin: bottom; }
+    .stem.s2 { transform: rotate(22deg); height:160px; left:104px; }
+    .stem.s3 { transform: rotate(-19deg); height:155px; left:157px; }
+    .flower { position:absolute; width:92px; height:92px; border-radius:50%; background: radial-gradient(circle, #f8ece4 0 12%, #bf8c72 13% 30%, #8d6754 31% 49%, transparent 50%); }
+    .flower.f1{left:82px;top:36px;}.flower.f2{left:155px;top:78px;transform:scale(.88)}.flower.f3{left:28px;top:86px;transform:scale(.78)}
+    .leaf { position:absolute; width:72px; height:33px; background:#61735e; border-radius: 100% 0 100% 0; opacity:.88; }
+    .leaf.l1{left:38px;top:178px;transform:rotate(-34deg)}.leaf.l2{left:170px;top:158px;transform:rotate(24deg)}.leaf.l3{left:92px;top:204px;transform:rotate(11deg)}
+    .hero-note { position:absolute; left:22px; bottom:18px; right:22px; padding: 13px 16px; border-radius: 17px; background: rgba(255,253,249,.82); backdrop-filter: blur(10px); font-size: 13px; display:flex; justify-content:space-between; gap:16px; }
+
+    .section { width:min(1180px, calc(100% - 40px)); margin:0 auto; padding: 34px 0 78px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:22px; }
+    .section h2 { margin:0; font-size: 31px; letter-spacing:-.03em; }
+    .section-desc { color:var(--muted); max-width: 570px; }
+
+    .ai-panel {
+      background: #2c2722;
+      color:white;
+      border-radius: 30px;
+      padding: 28px;
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap:28px;
+      box-shadow: var(--shadow);
+    }
+    .ai-panel h3 { font-size: 28px; margin: 0 0 10px; }
+    .ai-panel p { color:#d6cec7; margin:0 0 20px; }
+    .ai-hint { display:flex; flex-wrap:wrap; gap:8px; }
+    .hint { border:1px solid #514a43; color:#e7ddd4; padding:8px 10px; border-radius:999px; font-size:12px; background:#37312c; }
+    .ai-form { background:#fffaf4; border-radius:23px; padding:18px; color:var(--ink); }
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .field label { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:#8a8076; display:block; margin:0 0 5px; font-weight:700; }
+    .field input,.field select { width:100%; border:1px solid var(--line); border-radius:12px; padding:12px; outline:none; background:#fffdf9; }
+    .field.full { grid-column:1/-1; }
+    .ai-submit { width:100%; margin-top:12px; }
+    .ai-result { margin-top:16px; padding:16px; background:#f3ece4; border-radius:16px; display:none; }
+    .ai-result.show { display:block; }
+    .result-title { font-weight:800; margin-bottom:8px; }
+    .result-grid { display:grid; grid-template-columns:1fr auto; gap:6px 12px; font-size:14px; }
+    .result-total { border-top:1px solid #d7ccc0; margin-top:9px; padding-top:10px; font-weight:800; display:flex; justify-content:space-between; }
+
+    .filter-bar { display:flex; flex-wrap:wrap; gap:10px; padding:14px; background:var(--paper); border:1px solid var(--line); border-radius:18px; margin-bottom:18px; }
+    .filter { padding:9px 12px; border:1px solid var(--line); background:transparent; border-radius:999px; color:#5f564f; font-size:13px; }
+    .filter.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .sort { margin-left:auto; border:1px solid var(--line); background:transparent; border-radius:999px; padding:9px 12px; }
+    .products { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; min-width:0; }
+    .visual { aspect-ratio: 1 / 1; position:relative; overflow:hidden; display:grid; place-items:center; }
+    .visual.one{background:linear-gradient(145deg,#f0ded5,#d0ab95)}
+    .visual.two{background:linear-gradient(145deg,#ebdfd1,#b8b9a0)}
+    .visual.three{background:linear-gradient(145deg,#ecd5cf,#c19b84)}
+    .visual.four{background:linear-gradient(145deg,#e5dfd0,#afa795)}
+    .visual.five{background:linear-gradient(145deg,#ede2cf,#cba970)}
+    .visual.six{background:linear-gradient(145deg,#e9d7df,#b98da3)}
+    .mini-flower { width:145px; height:145px; border-radius:50%; background:radial-gradient(circle,#fff5ef 0 8%,#c58f75 9% 29%,#8c6756 30% 48%,transparent 49%); filter:drop-shadow(0 12px 12px rgba(70,50,38,.15)); }
+    .mini-box { width:160px;height:118px;border-radius:16px;background:#c8a98f;box-shadow:0 18px 25px rgba(50,35,26,.16);position:relative; }
+    .mini-box::after{content:'';position:absolute;inset:12px;border:2px dashed rgba(255,255,255,.55);border-radius:11px}
+    .mini-gift { width:150px;height:110px;background:#b98f72;border-radius:14px;position:relative;box-shadow:0 17px 24px rgba(50,35,26,.14); }
+    .mini-gift::before{content:'';position:absolute;left:67px;top:-9px;width:17px;height:128px;background:#f2e3d0;border-radius:7px}
+    .mini-gift::after{content:'✦';position:absolute;inset:0;display:grid;place-items:center;color:#fff6ef;font-size:38px}
+    .mini-candle { width:90px;height:110px;border-radius:14px;background:#f1e3d6;box-shadow:0 15px 20px rgba(50,35,26,.14);position:relative; }
+    .mini-candle::before{content:'';position:absolute;width:18px;height:28px;background:#82715e;left:36px;top:-21px;border-radius:50% 50% 40% 40%;box-shadow:0 -7px 0 -2px #c6a27f}
+    .card-body { padding:15px; }
+    .tag { display:inline-block; font-size:11px; font-weight:800; color:#7a5d49; background:var(--soft); padding:5px 8px; border-radius:999px; }
+    .card h3 { font-size:16px; margin:10px 0 4px; letter-spacing:-.01em; }
+    .meta { color:var(--muted); font-size:13px; }
+    .card-foot { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:13px; }
+    .price { font-weight:850; }
+    .add { border:1px solid var(--line); background:#fff; border-radius:12px; padding:8px 11px; font-weight:750; }
+    .add:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+    .benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .benefit { padding:22px; background:var(--paper); border:1px solid var(--line); border-radius:20px; }
+    .benefit .num { font-size:12px; color:#8d7969; font-weight:800; letter-spacing:.08em; }
+    .benefit h3 { margin:10px 0 7px; font-size:18px; }
+    .benefit p { margin:0; color:var(--muted); font-size:14px; }
+
+    footer { background:#2c2722; color:#eee5dc; margin-top:30px; }
+    .footer-inner { width:min(1180px, calc(100% - 40px)); margin:auto; padding:42px 0; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:28px; }
+    footer p, footer a { color:#bdb2a8; font-size:13px; }
+    footer h4 { margin:0 0 9px; font-size:14px; }
+    .footer-brand { font-size:22px; font-weight:800; margin-bottom:8px; }
+
+    .cart-drawer { position:fixed; inset:0; background:rgba(26,20,15,.45); opacity:0; pointer-events:none; transition:.2s; z-index:50; }
+    .cart-drawer.open{opacity:1;pointer-events:auto}
+    .drawer { position:absolute; right:0;top:0;height:100%;width:min(420px,94vw);background:var(--paper);padding:24px;transform:translateX(100%);transition:.25s;display:flex;flex-direction:column; }
+    .cart-drawer.open .drawer{transform:translateX(0)}
+    .drawer-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}
+    .drawer-items{flex:1;overflow:auto;padding:14px 0}
+    .empty{padding:40px 0;color:var(--muted);text-align:center}
+    .cart-item{display:grid;grid-template-columns:58px 1fr auto;gap:11px;align-items:center;padding:10px 0}
+    .cart-thumb{width:58px;height:58px;border-radius:13px;background:linear-gradient(145deg,#eee0d4,#bf9b83);}
+    .cart-item h4{font-size:14px;margin:0 0 3px}.cart-item p{font-size:12px;color:var(--muted);margin:0}
+    .remove{border:0;background:transparent;color:#8d7d70;padding:5px}
+    .drawer-foot{border-top:1px solid var(--line);padding-top:14px}.total-line{display:flex;justify-content:space-between;font-weight:800;margin-bottom:12px}
+    .checkout{width:100%;}
+
+    @media (max-width: 980px) {
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr; padding-top:40px; }
+      .products { grid-template-columns:repeat(2,1fr); }
+      .ai-panel { grid-template-columns:1fr; }
+      .benefits { grid-template-columns:1fr; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .topbar{font-size:11px}
+      .nav { width:min(100% - 24px,1180px); }
+      .hero,.section{width:min(100% - 24px,1180px)}
+      .hero-card{min-height:330px}
+      .field-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .products{grid-template-columns:1fr 1fr;gap:10px}
+      .sort{width:100%;margin-left:0}
+      .footer-inner{grid-template-columns:1fr}
+      h1{font-size:44px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Miễn phí tư vấn chọn quà · Gợi ý theo ngân sách · Đặt nhanh trong vài phút</div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark"></span>
+        <span>MỘC FLOWER</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#ai">Mộc AI</a>
+        <a href="#shop">Khám phá quà</a>
+        <a href="#why">Vì sao Mộc?</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="document.getElementById('shop').scrollIntoView()">Tìm quà</button>
+        <button class="cart-btn" onclick="toggleCart(true)">Giỏ hàng <span class="badge" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">AI Gift Assistant · MVP</span>
+        <h1>Tặng đúng người,<br>đúng dịp,<br>đúng ngân sách.</h1>
+        <p>Mộc Flower giúp bạn tìm hoa và quà tặng theo dịp. Chỉ cần nói bạn tặng ai, dịp gì và muốn chi bao nhiêu — Mộc AI sẽ gợi ý một vài lựa chọn dễ quyết định.</p>
+        <div class="hero-cta">
+          <a class="primary" href="#ai">Thử Mộc AI</a>
+          <a class="secondary" href="#shop">Xem quà mẫu</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Minh họa bó hoa">
+        <div class="bouquet-art">
+          <div class="bouquet">
+            <div class="stem"></div><div class="stem s2"></div><div class="stem s3"></div>
+            <div class="flower f1"></div><div class="flower f2"></div><div class="flower f3"></div>
+            <div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div>
+            <div class="wrap"></div>
+          </div>
+        </div>
+        <div class="hero-note"><span><strong>Gợi ý cá nhân hóa</strong><br>Hoa + quà + thiệp theo ngân sách</span><span>↗</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="ai">
+      <div class="section-head">
+        <div>
+          <h2>Mộc AI · nói nhu cầu, nhận gợi ý</h2>
+          <div class="section-desc">Một bộ lọc hội thoại đơn giản cho bản MVP. Sau này có thể kết nối dữ liệu sản phẩm và giá thật từ các shop đối tác.</div>
+        </div>
+      </div>
+      <div class="ai-panel">
+        <div>
+          <h3>Không biết mua gì?</h3>
+          <p>Đừng bắt đầu bằng tên sản phẩm. Hãy bắt đầu từ người bạn muốn tặng.</p>
+          <div class="ai-hint">
+            <span class="hint">Sinh nhật bạn gái · 500k</span>
+            <span class="hint">Tốt nghiệp bạn thân · 300k</span>
+            <span class="hint">20/10 · 200k</span>
+          </div>
+        </div>
+        <div class="ai-form">
+          <div class="field-grid">
+            <div class="field full">
+              <label>Bạn muốn tặng ai?</label>
+              <input id="recipient" placeholder="Ví dụ: bạn gái, mẹ, bạn thân..." />
+            </div>
+            <div class="field">
+              <label>Dịp</label>
+              <select id="occasion"><option>Sinh nhật</option><option>Valentine</option><option>Tốt nghiệp</option><option>20/10</option><option>8/3</option><option>Kỷ niệm</option></select>
+            </div>
+            <div class="field">
+              <label>Ngân sách</label>
+              <select id="budget"><option value="200000">200.000đ</option><option value="300000">300.000đ</option><option value="500000" selected>500.000đ</option><option value="800000">800.000đ</option><option value="1000000">1.000.000đ</option></select>
+            </div>
+            <div class="field full">
+              <label>Gu hoặc màu sắc (không bắt buộc)</label>
+              <input id="preference" placeholder="Ví dụ: màu hồng, tối giản, dễ thương..." />
+            </div>
+          </div>
+          <button class="primary ai-submit" onclick="recommendGift()">Mộc AI, giúp tôi chọn</button>
+          <div class="ai-result" id="aiResult"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="section-head">
+        <div>
+          <h2>Khám phá quà tặng</h2>
+          <div class="section-desc">Các mẫu minh họa cho MVP. Giá và danh mục có thể thay thế bằng dữ liệu thật của đối tác.</div>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <button class="filter active" data-filter="all">Tất cả</button>
+        <button class="filter" data-filter="flower">Hoa</button>
+        <button class="filter" data-filter="combo">Combo</button>
+        <button class="filter" data-filter="gift">Quà tặng</button>
+        <button class="filter" data-filter="under300">Dưới 300k</button>
+        <select class="sort" id="sort" aria-label="Sắp xếp">
+          <option value="default">Sắp xếp</option>
+          <option value="low">Giá thấp → cao</option>
+          <option value="high">Giá cao → thấp</option>
+        </select>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="section-head">
+        <div>
+          <h2>Vì sao Mộc?</h2>
+          <div class="section-desc">Giá trị cốt lõi của ý tưởng: giảm thời gian tìm kiếm, tăng khả năng chọn đúng quà và kiểm soát chi phí.</div>
+        </div>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><div class="num">01 · NHANH</div><h3>Không cần tìm từng shop</h3><p>Nhập nhu cầu một lần, xem các lựa chọn phù hợp trên cùng một nền tảng.</p></div>
+        <div class="benefit"><div class="num">02 · RÕ</div><h3>Biết tổng tiền trước khi đặt</h3><p>AI hỗ trợ tính giá sản phẩm, phụ kiện và giao hàng theo ngân sách.</p></div>
+        <div class="benefit"><div class="num">03 · CÁ NHÂN</div><h3>Quà theo người nhận</h3><p>Gợi ý theo dịp, mối quan hệ, sở thích và phong cách thay vì chỉ theo danh mục sản phẩm.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">MỘC FLOWER</div>
+        <p>Nền tảng tìm và đặt quà tặng theo dịp. Prototype MVP cho dự án khởi nghiệp sinh viên.</p>
+      </div>
+      <div><h4>Khám phá</h4><p><a href="#ai">Mộc AI</a></p><p><a href="#shop">Quà tặng</a></p></div>
+      <div><h4>Hỗ trợ</h4><p>Chính sách đổi trả</p><p>Giao hàng</p></div>
+      <div><h4>Liên hệ</h4><p>hello@mocflower.local</p><p>TP. Hồ Chí Minh</p></div>
+    </div>
+  </footer>
+
+  <div class="cart-drawer" id="cartDrawer" onclick="if(event.target.id==='cartDrawer')toggleCart(false)">
+    <aside class="drawer">
+      <div class="drawer-head"><strong>Giỏ hàng</strong><button class="icon-btn" onclick="toggleCart(false)">Đóng</button></div>
+      <div class="drawer-items" id="cartItems"></div>
+      <div class="drawer-foot"><div class="total-line"><span>Tạm tính</span><span id="cartTotal">0đ</span></div><button class="primary checkout">Tiến hành đặt hàng</button></div>
+    </aside>
+  </div>
+
+  <script>
+    const products = [
+      {id:1,name:'Bó Hồng Pastel',price:280000,cat:'flower',tag:'Sinh nhật',shape:'one',desc:'Nhẹ nhàng · dễ tặng'},
+      {id:2,name:'Combo Tốt Nghiệp',price:295000,cat:'combo',tag:'Tốt nghiệp',shape:'two',desc:'Hoa + thiệp + phụ kiện'},
+      {id:3,name:'Hộp Quà “Cảm Ơn”',price:420000,cat:'gift',tag:'Cảm ơn',shape:'three',desc:'Nến thơm · thiệp'},
+      {id:4,name:'Bó Cúc Tối Giản',price:190000,cat:'flower',tag:'Dễ thương',shape:'four',desc:'Gọn · sáng · tinh tế'},
+      {id:5,name:'Combo Sweet 500',price:495000,cat:'combo',tag:'Valentine',shape:'five',desc:'Hoa + socola + thiệp'},
+      {id:6,name:'Hộp Quà Hồng Mơ',price:360000,cat:'gift',tag:'Bạn gái',shape:'six',desc:'Nến · gấu · thiệp'}
+    ];
+    let activeFilter='all';
+    let cart=[];
+
+    const fmt = n => new Intl.NumberFormat('vi-VN').format(n)+'đ';
+    function visualMarkup(p){
+      if(p.shape==='one'||p.shape==='four') return '<div class="mini-flower"></div>';
+      if(p.shape==='two') return '<div class="mini-box"></div>';
+      if(p.shape==='three'||p.shape==='five') return '<div class="mini-gift"></div>';
+      return '<div class="mini-candle"></div>';
+    }
+    function renderProducts(){
+      let list=products.filter(p=>activeFilter==='all'||activeFilter===p.cat||(activeFilter==='under300'&&p.price<300000));
+      const sort=document.getElementById('sort').value;
+      if(sort==='low') list.sort((a,b)=>a.price-b.price);
+      if(sort==='high') list.sort((a,b)=>b.price-a.price);
+      document.getElementById('productGrid').innerHTML=list.map(p=>`<article class="card">
+        <div class="visual ${p.shape}">${visualMarkup(p)}</div>
+        <div class="card-body"><span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="meta">${p.desc}</div>
+        <div class="card-foot"><span class="price">${fmt(p.price)}</span><button class="add" onclick="addToCart(${p.id})">Thêm</button></div></div>
+      </article>`).join('');
+    }
+    document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); activeFilter=b.dataset.filter; renderProducts();
+    }));
+    document.getElementById('sort').addEventListener('change',renderProducts);
+
+    function addToCart(id){
+      const p=products.find(x=>x.id===id); cart.push(p); renderCart();
+    }
+    function renderCart(){
+      document.getElementById('cartCount').textContent=cart.length;
+      const box=document.getElementById('cartItems');
+      if(!cart.length){ box.innerHTML='<div class="empty">Giỏ hàng đang trống.<br>Chọn một món quà để bắt đầu.</div>'; }
+      else box.innerHTML=cart.map((p,i)=>`<div class="cart-item"><div class="cart-thumb"></div><div><h4>${p.name}</h4><p>${fmt(p.price)}</p></div><button class="remove" onclick="removeFromCart(${i})">×</button></div>`).join('');
+      document.getElementById('cartTotal').textContent=fmt(cart.reduce((s,p)=>s+p.price,0));
+    }
+    function removeFromCart(i){cart.splice(i,1);renderCart();}
+    function toggleCart(open){document.getElementById('cartDrawer').classList.toggle('open',open);}
+
+    function recommendGift(){
+      const recipient=(document.getElementById('recipient').value||'người thân').trim();
+      const occasion=document.getElementById('occasion').value;
+      const budget=Number(document.getElementById('budget').value);
+      const pref=(document.getElementById('preference').value||'').trim();
+      let options=[];
+      if(budget<=200000){
+        options=[['Bó Cúc Tối Giản',190000,['Hoa','Thiệp cơ bản']]];
+      } else if(budget<=300000){
+        options=[['Bó Hồng Pastel',280000,['Hoa','Thiệp']],['Combo Tốt Nghiệp',295000,['Hoa','Thiệp','Phụ kiện']]];
+      } else if(budget<=500000){
+        options=[['Combo Sweet 500',495000,['Hoa','Socola','Thiệp']],['Hộp Quà Hồng Mơ',360000,['Nến','Gấu','Thiệp']]];
+      } else {
+        options=[['Combo Sweet 500',495000,['Hoa','Socola','Thiệp']],['Hộp Quà “Cảm Ơn”',420000,['Nến thơm','Thiệp']],['Hộp Quà Hồng Mơ',360000,['Nến','Gấu','Thiệp']]];
+      }
+      const best=options.slice(0,3);
+      const prefText=pref?` · ${pref}`:'';
+      document.getElementById('aiResult').classList.add('show');
+      document.getElementById('aiResult').innerHTML=`<div class="result-title">Gợi ý cho ${recipient} · ${occasion}${prefText}</div>
+      <div class="result-grid">${best.map(o=>`<div>${o[0]}</div><div><strong>${fmt(o[1])}</strong></div>`).join('')}</div>
+      <div class="result-total"><span>Ngân sách của bạn</span><span>${fmt(budget)}</span></div>
+      <div style="margin-top:9px;font-size:12px;color:#766b61">Đây là mô phỏng MVP. Khi kết nối dữ liệu thật, Mộc AI sẽ cộng cả phụ kiện và phí giao hàng theo khu vực.</div>`;
+    }
+
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
