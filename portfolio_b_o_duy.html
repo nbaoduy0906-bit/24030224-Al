@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Bảo Duy | Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0b0f19',
+                        darker: '#070a11',
+                        primary: '#8b5cf6', // Tím
+                        secondary: '#3b82f6' // Xanh dương
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #a855f7, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gradient-custom {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        }
+
+        /* Hiệu ứng xuất hiện */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hiệu ứng trôi nổi */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-dark/80 backdrop-blur-md border-b border-white/5 transition-all">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#home" class="font-heading font-bold text-2xl tracking-tight text-white">
+                Bảo Duy<span class="text-primary">.</span>
+            </a>
+            <div class="hidden md:flex gap-8 font-medium text-sm">
+                <a href="#about" class="text-gray-400 hover:text-white transition-colors">Giới thiệu</a>
+                <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Kỹ năng</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition-colors">Liên hệ</a>
+            </div>
+            <a href="#contact" class="hidden md:block px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition-all text-sm border border-white/10">
+                Kết nối ngay
+            </a>
+            <!-- Nút menu mobile -->
+            <button class="md:hidden text-gray-300 text-2xl"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <!-- Ánh sáng nền -->
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-[120px] -z-10"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-72 h-72 bg-secondary/20 rounded-full blur-[120px] -z-10"></div>
+
+        <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left reveal active">
+                <div class="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-6">
+                    👋 Xin chào, mình là
+                </div>
+                <h1 class="font-heading text-5xl md:text-7xl font-bold mb-4 text-white leading-tight">
+                    Nguyễn <br><span class="text-gradient">Bảo Duy</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl text-gray-400 font-medium mb-8">
+                    Sinh viên <span class="text-white">Truyền thông Đa phương tiện</span><br>
+                    @ Đại học Gia Định
+                </h2>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contact" class="px-8 py-3.5 rounded-full bg-gradient-custom text-white font-semibold shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1 text-center">
+                        Thông tin liên hệ <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex justify-center md:justify-end reveal active">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 floating">
+                    <div class="absolute inset-0 rounded-full bg-gradient-custom blur-xl opacity-50"></div>
+                    <div class="relative w-full h-full bg-darker rounded-full border-4 border-white/10 flex items-center justify-center shadow-2xl overflow-hidden z-10">
+                        <!-- Dùng avatar ảo vì chưa có ảnh thật -->
+                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=BaoDuy&backgroundColor=0b0f19" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Các icon lอย nổi -->
+                    <div class="absolute top-0 -left-4 bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 z-20 shadow-xl">
+                        <i class="fas fa-video text-secondary text-xl"></i>
+                    </div>
+                    <div class="absolute bottom-4 -right-4 bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 z-20 shadow-xl">
+                        <i class="fas fa-pen-nib text-primary text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-darker relative border-y border-white/5">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="font-heading text-3xl md:text-5xl font-bold mb-4 text-white reveal">Về <span class="text-gradient">Bản Thân</span></h2>
+            <div class="w-16 h-1 bg-primary mx-auto rounded-full mb-12 reveal"></div>
+            
+            <p class="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto reveal mb-10">
+                Mình có niềm đam mê mãnh liệt với lĩnh vực sản xuất truyền thông, từ việc lên ý tưởng kịch bản (Screenwriting) cho đến khâu cắt ghép, dựng video (Video Editing). Mình luôn tin rằng mỗi khung hình, mỗi câu chữ đều có thể kể một câu chuyện chạm đến cảm xúc người xem. Mình quen thuộc với các công cụ viết lách sáng tạo và đang không ngừng trau dồi kỹ năng hậu kỳ sản xuất.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 reveal">
+                <span class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white flex items-center gap-2"><i class="fas fa-film text-primary"></i> Media Production</span>
+                <span class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white flex items-center gap-2"><i class="fas fa-book-open text-secondary"></i> Screenwriting</span>
+                <span class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white flex items-center gap-2"><i class="fas fa-cut text-pink-500"></i> Video Editing</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading text-3xl md:text-5xl font-bold mb-4 text-white">Điểm Mạnh & <span class="text-gradient">Kỹ Năng</span></h2>
+                <div class="w-16 h-1 bg-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-8 reveal">
+                <!-- Kỹ năng 1 -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-medium">Viết kịch bản (Creative Writing)</span>
+                        <span class="text-primary font-bold">90%</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-3 border border-white/10">
+                        <div class="bg-gradient-custom h-3 rounded-full" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <!-- Kỹ năng 2 -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-medium">Dựng & Sản xuất Video (Video Production)</span>
+                        <span class="text-primary font-bold">85%</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-3 border border-white/10">
+                        <div class="bg-gradient-custom h-3 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <!-- Kỹ năng 3 -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-medium">Kịch bản phân cảnh (Scripting)</span>
+                        <span class="text-primary font-bold">80%</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-3 border border-white/10">
+                        <div class="bg-gradient-custom h-3 rounded-full" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <!-- Kỹ năng 4 -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-medium">Truyền thông Mạng xã hội (Social Media)</span>
+                        <span class="text-primary font-bold">75%</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-3 border border-white/10">
+                        <div class="bg-gradient-custom h-3 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-darker border-t border-white/5 relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 reveal text-center">
+            <h2 class="font-heading text-4xl md:text-5xl font-bold mb-6 text-white">Kết Nối Với <span class="text-gradient">Mình</span></h2>
+            <p class="text-gray-400 mb-12 text-lg">Nếu bạn có ý tưởng hay cần một người hỗ trợ trong các dự án truyền thông, đừng ngần ngại liên hệ nhé!</p>
+            
+            <div class="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <!-- Thẻ Email -->
+                <a href="mailto:nbaoduy0906@gmail.com" class="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-primary/50 transition-all group flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/20 text-primary flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-sm text-gray-400 mb-1">Email</h3>
+                    <p class="text-white font-semibold text-lg">nbaoduy0906@gmail.com</p>
+                </a>
+                
+                <!-- Thẻ Số Điện Thoại -->
+                <a href="tel:0928554310" class="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-secondary/50 transition-all group flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="text-sm text-gray-400 mb-1">Điện thoại / Zalo</h3>
+                    <p class="text-white font-semibold text-lg">0928 554 310</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-dark border-t border-white/5 text-center">
+        <p class="text-gray-500 text-sm">
+            &copy; 2024 Nguyễn Bảo Duy. Thiết kế đơn giản & bắt mắt.<br>
+            <span class="text-xs mt-1 inline-block">Multimedia Communications @ GDU</span>
+        </p>
+    </footer>
+
+    <script>
+        // Xử lý hiệu ứng xuất hiện (fade-in) khi cuộn trang
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Kích hoạt ngay lúc tải trang
+        reveal();
+    </script>
+</body>
+</html>
