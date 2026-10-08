@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mộc Flower – Nền tảng tìm và đặt hoa, quà tặng theo dịp và ngân sách." />
+  <title>Mộc Flower — Tặng đúng người, đúng dịp, đúng ngân sách</title>
+  <style>
+    :root {
+      --bg: #fbf8f4;
+      --paper: #fffdf9;
+      --ink: #26231f;
+      --muted: #7a736b;
+      --line: #e7dfd4;
+      --accent: #8f6b55;
+      --soft: #f0e7de;
+      --shadow: 0 16px 50px rgba(62, 45, 33, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      padding: 9px 24px;
+      background: var(--ink);
+      color: #fffaf5;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(251,248,244,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(231,223,212,.9);
+    }
+    .nav {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 750;
+      letter-spacing: .02em;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50% 50% 45% 45%;
+      background: radial-gradient(circle at 45% 40%, #f2ded0 0 24%, #b98767 25% 45%, #8f6b55 46% 100%);
+      position: relative;
+      box-shadow: inset 0 -5px 9px rgba(60,40,26,.12);
+    }
+    .nav-links { display: flex; gap: 24px; color: #5e554d; font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-actions { display: flex; gap: 10px; }
+    .icon-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,253,249,.8);
+      color: var(--ink);
+      border-radius: 999px;
+      min-height: 40px;
+      padding: 0 16px;
+      font-weight: 650;
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 64px 0 50px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 48px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: #755743;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { font-size: clamp(40px, 5vw, 68px); line-height: .98; letter-spacing: -.045em; margin: 18px 0; max-width: 650px; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 0 26px; }
+    .hero-cta { display:flex; flex-wrap:wrap; gap: 12px; }
+    .primary, .secondary { border: 0; border-radius: 999px; padding: 13px 19px; font-weight: 700; }
+    .primary { background: var(--ink); color: white; }
+    .secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+
+    .hero-card {
+      min-height: 430px;
+      border-radius: 34px;
+      background: linear-gradient(145deg, #eee0d4, #c9ac96 48%, #896c5b);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .bouquet-art { position:absolute; inset:0; display:grid; place-items:center; }
+    .bouquet { position:relative; width: 270px; height:320px; }
+    .wrap { position:absolute; left:62px; bottom:24px; width:150px; height:155px; background: linear-gradient(145deg,#d5b8a0,#a18069); clip-path: polygon(10% 0,90% 0,74% 100%,26% 100%); transform: rotate(-3deg); }
+    .stem { position:absolute; width:4px; height:150px; background:#5e725d; bottom:100px; left:130px; }
+    .stem.s2 { transform: rotate(22deg); left:104px; }
+    .stem.s3 { transform: rotate(-19deg); left:157px; }
+    .flower { position:absolute; width:92px; height:92px; border-radius:50%; background: radial-gradient(circle, #f8ece4 0 12%, #bf8c72 13% 30%, #8d6754 31% 49%, transparent 50%); }
+    .flower.f1{left:82px;top:36px;}.flower.f2{left:155px;top:78px;transform:scale(.88)}.flower.f3{left:28px;top:86px;transform:scale(.78)}
+
+    .section { width:min(1180px, calc(100% - 40px)); margin:0 auto; padding: 34px 0 78px; }
+    .section-head { margin-bottom:22px; }
+    .section h2 { margin:0 0 8px; font-size: 31px; letter-spacing:-.03em; }
+    .section-desc { color:var(--muted); max-width: 570px; }
+
+    /* Mộc AI Styles */
+    .ai-panel {
+      background: #2c2722;
+      color:white;
+      border-radius: 30px;
+      padding: 28px;
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap:28px;
+      box-shadow: var(--shadow);
+    }
+    .ai-panel h3 { font-size: 28px; margin: 0 0 10px; }
+    .ai-panel p { color:#d6cec7; margin:0 0 20px; }
+    .ai-hint { display:flex; flex-wrap:wrap; gap:8px; }
+    .hint { border:1px solid #514a43; color:#e7ddd4; padding:8px 10px; border-radius:999px; font-size:12px; background:#37312c; }
+    .ai-form { background:#fffaf4; border-radius:23px; padding:18px; color:var(--ink); }
+    .ai-result { margin-top:16px; padding:16px; background:#f3ece4; border-radius:16px; display:none; }
+    .ai-result.show { display:block; }
+    .result-title { font-weight:800; margin-bottom:8px; }
+    .result-grid { display:grid; grid-template-columns:1fr auto; gap:6px 12px; font-size:14px; }
+    .result-total { border-top:1px solid #d7ccc0; margin-top:9px; padding-top:10px; font-weight:800; display:flex; justify-content:space-between; }
+
+    .filter-bar { display:flex; flex-wrap:wrap; gap:10px; padding:14px; background:var(--paper); border:1px solid var(--line); border-radius:18px; margin-bottom:18px; }
+    .filter { padding:9px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; font-size:13px; }
+    .filter.active { background:var(--ink); color:#fff; }
+    
+    .products { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden; }
+    
+    .visual { aspect-ratio: 1 / 1; position:relative; overflow:hidden; display:grid; place-items:center; }
+    .visual.one{background:linear-gradient(145deg,#f0ded5,#d0ab95)}
+    .visual.two{background:linear-gradient(145deg,#ebdfd1,#b8b9a0)}
+    .visual.three{background:linear-gradient(145deg,#ecd5cf,#c19b84)}
+    .visual.four{background:linear-gradient(145deg,#e5dfd0,#afa795)}
+    .visual.five{background:linear-gradient(145deg,#ede2cf,#cba970)}
+    .visual.six{background:linear-gradient(145deg,#e9d7df,#b98da3)}
+    
+    .mini-flower { width:145px; height:145px; border-radius:50%; background:radial-gradient(circle,#fff5ef 0 8%,#c58f75 9% 29%,#8c6756 30% 48%,transparent 49%); filter:drop-shadow(0 12px 12px rgba(70,50,38,.15)); }
+    .mini-box { width:160px;height:118px;border-radius:16px;background:#c8a98f;box-shadow:0 18px 25px rgba(50,35,26,.16);position:relative; }
+    .mini-box::after{content:'';position:absolute;inset:12px;border:2px dashed rgba(255,255,255,.55);border-radius:11px}
+    .mini-gift { width:150px;height:110px;background:#b98f72;border-radius:14px;position:relative;box-shadow:0 17px 24px rgba(50,35,26,.14); }
+    .mini-gift::before{content:'';position:absolute;left:67px;top:-9px;width:17px;height:128px;background:#f2e3d0;border-radius:7px}
+    .mini-gift::after{content:'✦';position:absolute;inset:0;display:grid;place-items:center;color:#fff6ef;font-size:38px}
+    .mini-candle { width:90px;height:110px;border-radius:14px;background:#f1e3d6;box-shadow:0 15px 20px rgba(50,35,26,.14);position:relative; }
+    .mini-candle::before{content:'';position:absolute;width:18px;height:28px;background:#82715e;left:36px;top:-21px;border-radius:50% 50% 40% 40%;box-shadow:0 -7px 0 -2px #c6a27f}
+    
+    .card-body { padding:15px; }
+    .tag { font-size:11px; font-weight:800; background:var(--soft); padding:5px 8px; border-radius:999px; }
+    .card h3 { font-size:16px; margin:10px 0 4px; }
+    .meta { color:var(--muted); font-size:13px; }
+    .card-foot { display:flex; justify-content:space-between; align-items:center; margin-top:13px; }
+    .price { font-weight:850; }
+    .add { border:1px solid var(--line); background:#fff; border-radius:12px; padding:8px 11px; font-weight:750; }
+    .add:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
+    
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px;
+    }
+    .contact-info {
+      background: #fbf8f4;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+    }
+    .contact-info h3 { margin: 0 0 16px; font-size: 20px; }
+    .contact-info p { margin: 8px 0; font-size: 14px; color: #5f564f; }
+    .contact-info strong { color: var(--ink); }
+    
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .field.full { grid-column:1/-1; }
+    .field label { font-size:12px; font-weight:700; display:block; margin-bottom:6px; color:#5f564f; }
+    .field input, .field select, .field textarea { 
+      width:100%; border:1px solid var(--line); border-radius:12px; 
+      padding:12px; outline:none; background:#fffdf9; 
+    }
+    .field textarea { min-height: 80px; resize: vertical; }
+
+    footer { background:#2c2722; color:#eee5dc; margin-top:30px; padding:42px 0; }
+    .footer-inner { width:min(1180px, calc(100% - 40px)); margin:auto; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:28px; }
+    .footer-brand { font-size:22px; font-weight:800; margin-bottom:8px; }
+
+    @media (max-width: 980px) {
+      .products { grid-template-columns:repeat(3,1fr); }
+      .contact-layout, .ai-panel { grid-template-columns:1fr; }
+    }
+    @media (max-width: 640px) {
+      .products { grid-template-columns:1fr 1fr; }
+      .nav-links { display: none; }
+      h1 { font-size:44px; }
+      .field-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Miễn phí tư vấn chọn quà · Gợi ý theo ngân sách · Đặt nhanh trong vài phút</div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark"></span>
+        <span>MỘC FLOWER</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#ai">Mộc AI</a>
+        <a href="#shop">Khám phá quà</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="document.getElementById('contact').scrollIntoView()">Đặt hàng ngay</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Quà tặng cá nhân hóa</span>
+        <h1>Tặng đúng người,<br>đúng dịp,<br>đúng ngân sách.</h1>
+        <p>Mộc Flower giúp bạn tìm hoa và quà tặng theo dịp. Chỉ cần nói nhu cầu của bạn, hoặc tự do chọn lựa và đặt hàng nhanh chóng.</p>
+        <div class="hero-cta">
+          <a class="primary" href="#ai">Thử Mộc AI</a>
+          <a class="secondary" href="#shop">Xem sản phẩm</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="bouquet-art">
+          <div class="bouquet">
+            <div class="stem"></div><div class="stem s2"></div><div class="stem s3"></div>
+            <div class="flower f1"></div><div class="flower f2"></div><div class="flower f3"></div>
+            <div class="wrap"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ai">
+      <div class="section-head">
+        <h2>Mộc AI · nói nhu cầu, nhận gợi ý</h2>
+        <div class="section-desc">Không biết nên chọn quà gì? Hãy để Mộc gợi ý cho bạn dựa trên đối tượng và ngân sách.</div>
+      </div>
+      <div class="ai-panel">
+        <div>
+          <h3>Không biết mua gì?</h3>
+          <p>Đừng bắt đầu bằng tên sản phẩm. Hãy bắt đầu từ người bạn muốn tặng.</p>
+          <div class="ai-hint">
+            <span class="hint">Sinh nhật bạn gái · 500k</span>
+            <span class="hint">Tốt nghiệp bạn thân · 300k</span>
+            <span class="hint">20/10 · 200k</span>
+          </div>
+        </div>
+        <div class="ai-form">
+          <div class="field-grid">
+            <div class="field full">
+              <label>Bạn muốn tặng ai?</label>
+              <input id="recipient" placeholder="Ví dụ: bạn gái, mẹ, bạn thân..." />
+            </div>
+            <div class="field">
+              <label>Dịp</label>
+              <select id="occasion">
+                <option>Sinh nhật</option><option>Valentine</option><option>Tốt nghiệp</option>
+                <option>20/10</option><option>8/3</option><option>Kỷ niệm</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Ngân sách</label>
+              <select id="budget">
+                <option value="200000">Dưới 200.000đ</option>
+                <option value="300000">Khoảng 300.000đ</option>
+                <option value="500000" selected>Khoảng 500.000đ</option>
+                <option value="800000">Khoảng 800.000đ</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Gu hoặc màu sắc (không bắt buộc)</label>
+              <input id="preference" placeholder="Ví dụ: màu hồng, tối giản, dễ thương..." />
+            </div>
+          </div>
+          <button class="primary" style="width:100%; margin-top:12px;" onclick="recommendGift()">Mộc AI, giúp tôi chọn</button>
+          <div class="ai-result" id="aiResult"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="section-head">
+        <h2>Khám phá quà tặng</h2>
+        <div class="section-desc">Lựa chọn các mẫu thiết kế có sẵn hoặc đặt làm theo yêu cầu.</div>
+      </div>
+      <div class="filter-bar">
+        <button class="filter active" data-filter="all">Tất cả</button>
+        <button class="filter" data-filter="flower">Hoa</button>
+        <button class="filter" data-filter="combo">Combo</button>
+        <button class="filter" data-filter="gift">Quà tặng</button>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-head">
+        <h2>Đặt Hàng Nhanh & Liên Hệ</h2>
+        <div class="section-desc">Để lại thông tin, Mộc Flower sẽ chuẩn bị quà và liên hệ với bạn để xác nhận đơn hàng ngay.</div>
+      </div>
+      
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h3>Thông tin cửa hàng</h3>
+          <p><strong>Email:</strong> nbaoduy0906@gmail.com</p>
+          <p><strong>Hotline / Zalo:</strong> 0928 554 310</p>
+          <p><strong>Địa chỉ:</strong> TP. Hồ Chí Minh</p>
+          <hr style="border: 0; border-top: 1px dashed #d5c8bb; margin: 20px 0;">
+          <p style="font-size: 13px;"><em>* Sau khi bấm "Gửi Đơn Hàng", hệ thống sẽ tự động tạo một email với đầy đủ thông tin của bạn để gửi tới shop.</em></p>
+        </div>
+        
+        <div class="contact-form">
+          <div class="field-grid">
+            <div class="field">
+              <label>Họ và tên (*)</label>
+              <input type="text" id="orderName" placeholder="Tên người nhận/đặt" required>
+            </div>
+            <div class="field">
+              <label>Năm sinh</label>
+              <input type="number" id="orderYear" placeholder="VD: 2006">
+            </div>
+            <div class="field">
+              <label>Số điện thoại (*)</label>
+              <input type="tel" id="orderPhone" placeholder="SĐT liên hệ" required>
+            </div>
+            <div class="field">
+              <label>Loại combo / Tên món quà</label>
+              <input type="text" id="orderCombo" placeholder="VD: Bó Hồng Pastel">
+            </div>
+            <div class="field full">
+              <label>Địa chỉ giao hàng (*)</label>
+              <input type="text" id="orderAddress" placeholder="Số nhà, Đường, Phường, Quận..." required>
+            </div>
+            <div class="field full">
+              <label>Gợi ý / Ghi chú cho Mộc</label>
+              <textarea id="orderNote" placeholder="Bạn muốn thiết kế tông màu gì? Cần ghi lời chúc gì lên thiệp? ..."></textarea>
+            </div>
+          </div>
+          <button class="primary" style="width:100%; margin-top:20px; font-size:15px;" onclick="sendDirectOrder()">Gửi Đơn Hàng Qua Email</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">MỘC FLOWER</div>
+        <p>Gửi gắm yêu thương qua từng món quà.</p>
+      </div>
+      <div>
+        <h4>Hỗ trợ</h4>
+        <p>Giao hàng tận nơi</p>
+        <p>Hướng dẫn đặt hàng</p>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <p>Email: nbaoduy0906@gmail.com</p>
+        <p>Hotline: 0928 554 310</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      {id:1,name:'Bó Hồng Pastel',price:280000,cat:'flower',tag:'Sinh nhật',shape:'one',desc:'Nhẹ nhàng · dễ tặng'},
+      {id:2,name:'Combo Tốt Nghiệp',price:295000,cat:'combo',tag:'Tốt nghiệp',shape:'two',desc:'Hoa + thiệp + gấu'},
+      {id:3,name:'Hộp Quà “Cảm Ơn”',price:420000,cat:'gift',tag:'Cảm ơn',shape:'three',desc:'Nến thơm · thiệp'},
+      {id:4,name:'Bó Cúc Tối Giản',price:190000,cat:'flower',tag:'Dễ thương',shape:'four',desc:'Gọn · sáng · tinh tế'},
+      {id:5,name:'Combo Sweet 500',price:495000,cat:'combo',tag:'Valentine',shape:'five',desc:'Hoa + socola + thiệp'},
+      {id:6,name:'Set Nến Thơm Chill',price:290000,cat:'gift',tag:'Thư giãn',shape:'six',desc:'Nến · diêm · tinh dầu'},
+      {id:7,name:'Bó Hướng Dương',price:250000,cat:'flower',tag:'Tươi sáng',shape:'one',desc:'Rạng rỡ · ý nghĩa'},
+      {id:8,name:'Combo Gấu & Hoa',price:380000,cat:'combo',tag:'Kỷ niệm',shape:'two',desc:'Hoa baby + gấu bông'},
+      {id:9,name:'Hộp Gỗ Khắc Tên',price:480000,cat:'gift',tag:'Sang trọng',shape:'three',desc:'Quà gỗ · lưu niệm'},
+      {id:10,name:'Lẵng Baby Trắng',price:320000,cat:'flower',tag:'Tinh khôi',shape:'four',desc:'Hoa baby ngập tràn'},
+      {id:11,name:'Combo Sinh Nhật',price:600000,cat:'combo',tag:'Sinh nhật',shape:'five',desc:'Hoa + bánh mini'},
+      {id:12,name:'Set Trà Hoa Cúc',price:220000,cat:'gift',tag:'Healthy',shape:'six',desc:'Trà · mật ong · thiệp'}
+    ];
+    let activeFilter='all';
+
+    const fmt = n => new Intl.NumberFormat('vi-VN').format(n)+'đ';
+    
+    function visualMarkup(p){
+      if(p.shape==='one'||p.shape==='four') return '<div class="mini-flower"></div>';
+      if(p.shape==='two') return '<div class="mini-box"></div>';
+      if(p.shape==='three'||p.shape==='five') return '<div class="mini-gift"></div>';
+      return '<div class="mini-candle"></div>';
+    }
+
+    function renderProducts(){
+      let list=products.filter(p=>activeFilter==='all'||activeFilter===p.cat);
+      document.getElementById('productGrid').innerHTML=list.map(p=>`<article class="card">
+        <div class="visual ${p.shape}">${visualMarkup(p)}</div>
+        <div class="card-body">
+          <span class="tag">${p.tag}</span>
+          <h3>${p.name}</h3><div class="meta">${p.desc}</div>
+          <div class="card-foot">
+            <span class="price">${fmt(p.price)}</span>
+            <button class="add" onclick="fillCombo('${p.name}')">Chọn Đặt</button>
+          </div>
+        </div>
+      </article>`).join('');
+    }
+
+    document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); activeFilter=b.dataset.filter; renderProducts();
+    }));
+
+    // Logic Mộc AI
+    function recommendGift(){
+      const recipient=(document.getElementById('recipient').value||'người thân').trim();
+      const occasion=document.getElementById('occasion').value;
+      const budget=Number(document.getElementById('budget').value);
+      const pref=(document.getElementById('preference').value||'').trim();
+      let options=[];
+      
+      if(budget<=200000){
+        options=[['Bó Cúc Tối Giản',190000],['Set Trà Hoa Cúc',220000]];
+      } else if(budget<=300000){
+        options=[['Bó Hồng Pastel',280000],['Combo Tốt Nghiệp',295000],['Set Nến Thơm Chill',290000]];
+      } else if(budget<=500000){
+        options=[['Combo Sweet 500',495000],['Hộp Quà “Cảm Ơn”',420000],['Combo Gấu & Hoa',380000]];
+      } else {
+        options=[['Combo Sinh Nhật',600000],['Hộp Gỗ Khắc Tên',480000],['Combo Sweet 500',495000]];
+      }
+      
+      const best=options.slice(0,3);
+      const prefText=pref?` · ${pref}`:'';
+      document.getElementById('aiResult').classList.add('show');
+      document.getElementById('aiResult').innerHTML=`<div class="result-title">Gợi ý cho ${recipient} · ${occasion}${prefText}</div>
+      <div class="result-grid">${best.map(o=>`<div>${o[0]}</div><div><strong>${fmt(o[1])}</strong></div>`).join('')}</div>
+      <div class="result-total"><span>Ngân sách bạn chọn</span><span>${fmt(budget)}</span></div>
+      <div style="margin-top:12px;"><button class="add" style="width:100%; border:none; background:#8f6b55; color:white;" onclick="fillCombo('${best[0][0]}')">Chọn & Đặt món này</button></div>`;
+    }
+
+    function fillCombo(comboName) {
+      document.getElementById('orderCombo').value = comboName;
+      document.getElementById('contact').scrollIntoView({behavior: "smooth"});
+    }
+
+    function sendDirectOrder() {
+      const name = document.getElementById('orderName').value.trim();
+      const year = document.getElementById('orderYear').value.trim();
+      const phone = document.getElementById('orderPhone').value.trim();
+      const combo = document.getElementById('orderCombo').value.trim();
+      const address = document.getElementById('orderAddress').value.trim();
+      const note = document.getElementById('orderNote').value.trim();
+
+      if(!name || !phone || !address) {
+        alert('Vui lòng điền tối thiểu các trường có dấu (*): Họ tên, Số điện thoại và Địa chỉ!');
+        return;
+      }
+
+      const subject = encodeURIComponent(`[Đơn hàng mới] Từ khách hàng: ${name} - SĐT: ${phone}`);
+      const body = encodeURIComponent(`Xin chào Mộc Flower,
+
+Dưới đây là thông tin đơn đặt hàng của tôi:
+
+THÔNG TIN NGƯỜI NHẬN:
+- Họ và tên: ${name}
+- Năm sinh: ${year ? year : 'Không cung cấp'}
+- Số điện thoại: ${phone}
+- Địa chỉ giao hàng: ${address}
+
+THÔNG TIN QUÀ TẶNG:
+- Loại combo / Tên món quà: ${combo ? combo : 'Đang nhờ tư vấn thêm'}
+- Gợi ý / Ghi chú thêm: ${note ? note : 'Không có'}
+
+Vui lòng kiểm tra và phản hồi lại tôi để chốt đơn nhé. Cảm ơn!`);
+
+      window.location.href = `mailto:nbaoduy0906@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
